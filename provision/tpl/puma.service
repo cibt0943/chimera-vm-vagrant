@@ -1,0 +1,16 @@
+[Unit]
+Description=Puma HTTP Server
+After=network.target
+
+[Service]
+Type=simple
+User=vagrant
+Group=vagrant
+WorkingDirectory=/var/www/rails_app/(ap_dir_name)
+Environment=RAILS_ENV=(rails_env)
+ExecStart=/usr/local/rbenv/shims/bundle exec puma -b 'unix:///var/run/puma/(ap_name)/puma.sock'
+TimeoutSec=300
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
