@@ -81,21 +81,26 @@ echo '==> end yum'
 cd /var/www/rails_app/$ap_dir_name
 
 ## ホストOSがWindowsの場合 ##
-# vendor/bundleの下にgemを入れたいがホストPCがWindowsの場合、
-# ファイルシステムの違いによりsynced_folder内にgemを置く事が出来ない。
-# その為、/var/www/rails_bundleにgemを置き、vendor/bundleには参考ソースとしてコピーを置いておく
+# # vendor/bundleの下にgemを入れたいがホストPCがWindowsの場合、
+# # ファイルシステムの違いによりsynced_folder内にgemを置く事が出来ない。
+# # その為、/var/www/rails_bundleにgemを置き、vendor/bundleには参考ソースとしてコピーを置いておく
 
-# bundleにてgemを/var/www/rails_bundleディレクトリにインストール
-sudo rm -rf /var/www/rails_bundle/$ap_dir_name
-sudo mkdir -p /var/www/rails_bundle/$ap_dir_name
-sudo chmod 777 /var/www/rails_bundle/$ap_dir_name
-bundle install --path=/var/www/rails_bundle/$ap_dir_name/
+# # bundleにてgemを/var/www/rails_bundleディレクトリにインストール
+# sudo rm -rf /var/www/rails_bundle/$ap_dir_name
+# sudo mkdir -p /var/www/rails_bundle/$ap_dir_name
+# sudo chmod 777 /var/www/rails_bundle/$ap_dir_name
+# bundle install --path=/var/www/rails_bundle/$ap_dir_name/
 
-# bundleにて/var/www/rails_bundleディレクトリに入れたgemをrailsプロジェクトの中にコピー
-rm -rf vendor/bundle
+# # bundleにて/var/www/rails_bundleディレクトリに入れたgemをrailsプロジェクトの中にコピー
+# rm -rf vendor/bundle
+# rm -rf vendor/bundle
+# mkdir vendor/bundle
+# cp -rf /var/www/rails_bundle/$ap_dir_name/. vendor/bundle
+
+## ホストOSがWindows以外の場合 ##
 rm -rf vendor/bundle
 mkdir vendor/bundle
-cp -rf /var/www/rails_bundle/$ap_dir_name/. vendor/bundle
+bundle install --path=vendor/bundle
 
 echo '==> end bundle'
 
