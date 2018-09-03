@@ -2,13 +2,10 @@
 
 echo '== start chimera.sh ===================='
 
-
 rails_env=$1
-global_domain=$2
-
-ap_name="chimera"
-ap_server_name=$global_domain
-ap_dir_name="chimera"
+ap_code=$2
+ap_server_global_name=$3".com"
+ap_dir_name=$4
 
 # スクリプトファイルのルートへ移動
 cd /vagrant/provision
@@ -29,25 +26,25 @@ sudo sh -c "cat /etc/nginx/conf.d/default.conf tpl/nginx_ap_upstream.conf >> /et
 # nginxのglobal側を追記
 sudo sh -c "cat /etc/nginx/conf.d/default.conf tpl/nginx_ap_host_global.conf >> /etc/nginx/conf.d/default.conf"
 # 値を書き換え
-sudo sed -i -e "s/(ap_name)/$ap_name/g" /etc/nginx/conf.d/default.conf
-sudo sed -i -e "s/(ap_server_name)/$ap_server_name/g" /etc/nginx/conf.d/default.conf
+sudo sed -i -e "s/(ap_code)/$ap_code/g" /etc/nginx/conf.d/default.conf
+sudo sed -i -e "s/(ap_server_global_name)/$ap_server_global_name/g" /etc/nginx/conf.d/default.conf
 sudo sed -i -e "s/(ap_dir_name)/$ap_dir_name/g" /etc/nginx/conf.d/default.conf
 
 # マシン起動時にvar/runの下にpumaディレクトリを作成
-sudo sh -c "echo 'D /var/run/puma/$ap_name 0777 root root' >> /etc/tmpfiles.d/puma.conf"
+sudo sh -c "echo 'D /var/run/puma/$ap_code 0777 root root' >> /etc/tmpfiles.d/puma.conf"
 # 再起動しないと作成されないのでプロビジョニング時は手動で作成
-if [ ! -e /var/run/puma/$ap_name ]; then
-  sudo mkdir -p -m 0777 /var/run/puma/$ap_name
+if [ ! -e /var/run/puma/$ap_code ]; then
+  sudo mkdir -p -m 0777 /var/run/puma/$ap_code
 fi
 
 # puma自動起動用ファイルをコピー
-sudo cp tpl/puma.service /usr/lib/systemd/system/puma-$ap_name.service
-sudo sed -i -e "s/(ap_name)/$ap_name/g" /usr/lib/systemd/system/puma-$ap_name.service
-sudo sed -i -e "s/(ap_dir_name)/$ap_dir_name/g" /usr/lib/systemd/system/puma-$ap_name.service
-sudo sed -i -e "s/(rails_env)/$rails_env/g" /usr/lib/systemd/system/puma-$ap_name.service
+sudo cp tpl/puma.service /usr/lib/systemd/system/puma-$ap_code.service
+sudo sed -i -e "s/(ap_code)/$ap_code/g" /usr/lib/systemd/system/puma-$ap_code.service
+sudo sed -i -e "s/(ap_dir_name)/$ap_dir_name/g" /usr/lib/systemd/system/puma-$ap_code.service
+sudo sed -i -e "s/(rails_env)/$rails_env/g" /usr/lib/systemd/system/puma-$ap_code.service
 
 # puma自動起動設定
-sudo systemctl enable puma-$ap_name.service
+sudo systemctl enable puma-$ap_code.service
 
 # nginx自動起動設定
 sudo systemctl enable nginx.service
