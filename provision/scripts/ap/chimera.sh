@@ -44,9 +44,11 @@ sudo sed -i -e "s/(ap_dir_name)/$ap_dir_name/g" /usr/lib/systemd/system/puma-$ap
 sudo sed -i -e "s/(rails_env)/$rails_env/g" /usr/lib/systemd/system/puma-$ap_code.service
 
 # puma自動起動設定
+sudo systemctl disable puma-$ap_code.service
 sudo systemctl enable puma-$ap_code.service
 
 # nginx自動起動設定
+sudo systemctl disable nginx.service
 sudo systemctl enable nginx.service
 
 echo '==> end nginx and puma'
@@ -113,7 +115,8 @@ bin/rails db:migrate RAILS_ENV=test
 
 echo '==> end db'
 
-# nginx起動&自動起動設定
+# nginx起動
+sudo nginx -s stop
 sudo nginx
 
 sudo yum clean all

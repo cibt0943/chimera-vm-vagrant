@@ -15,6 +15,7 @@ Vagrant.configure(2) do |config|
     node.vm.provider "virtualbox" do |vb|
       vb.cpus = "1"
       vb.memory = "1024"
+      vb.name = "chimera.db"
     end
 
     node.vm.provision "shell", path: "provision/scripts/db/mysql.sh", privileged: true, args: [db_username, db_password]
@@ -40,6 +41,7 @@ Vagrant.configure(2) do |config|
     node.vm.provider "virtualbox" do |vb|
       vb.cpus = "1"
       vb.memory = "1024"
+      vb.name = "chimera.ap"
     end
 
     node.vm.provision "shell", path: "provision/scripts/ap/resolv.sh", privileged: true, args: [dns_ip]
