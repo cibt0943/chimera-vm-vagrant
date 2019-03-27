@@ -55,7 +55,7 @@ echo '==> end nginx and puma'
 
 # gemに必要なライブラリをインストール
 # for rails js runtime
-curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -
+curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
 sudo yum -y install nodejs
 
 # for mysql
