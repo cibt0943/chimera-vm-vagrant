@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
   db_password = "mysql"
 
   config.vm.define "chimera.db" do |node|
-    node.vm.box = "cibt0943/centos7_mysql5.6"
+    node.vm.box = "cibt0943/centos7_mysql5.7"
     node.vm.hostname = "chimera.db"
     node.vm.network "private_network", ip: db_ip
     node.vm.provider "virtualbox" do |vb|
