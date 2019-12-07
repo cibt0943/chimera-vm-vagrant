@@ -7,6 +7,7 @@ ap_code=$2
 ap_server_global_name=$3".com"
 ap_dir_name=$4
 
+sudo yum update
 sudo yum -y install wget gcc-c++
 
 # nginxのrpmインストール
@@ -55,6 +56,9 @@ echo '==> end nginx and puma'
 curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
 sudo yum -y install nodejs
 
+# for nokogiri
+sudo yum -y install libxml2-devel libxslt-devel
+
 # for mysql
 sudo yum -y install mysql-devel
 
@@ -82,6 +86,7 @@ cd /var/www/rails_app/$ap_dir_name
 # sudo rm -rf /var/www/rails_bundle/$ap_dir_name
 # sudo mkdir -p /var/www/rails_bundle/$ap_dir_name
 # sudo chmod 777 /var/www/rails_bundle/$ap_dir_name
+# bundle config build.nokogiri --use-system-libraries
 # bundle install --path=/var/www/rails_bundle/$ap_dir_name/
 
 # bundleにて/var/www/rails_bundleディレクトリに入れたgemをrailsプロジェクトの中にコピー
@@ -92,6 +97,7 @@ cd /var/www/rails_app/$ap_dir_name
 ## vagrantのsynced_folderディレクトリ内にgemがインストールできる場合 ##
 rm -rf vendor/bundle
 mkdir -p vendor/bundle
+bundle config build.nokogiri --use-system-libraries
 bundle install --path vendor/bundle
 
 echo '==> end bundle'
