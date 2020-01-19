@@ -1,2 +1,2 @@
-# chimera-local-vm
-project chimera vagrant local vm provisioning
+# chimera-vm-vagrant
+project chimera vagrant vm provisioning
