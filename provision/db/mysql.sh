@@ -23,7 +23,7 @@ CREATE USER 'ro_$1'@'%' IDENTIFIED BY '$2';
 GRANT SELECT ON *.* TO 'ro_$1'@'%' WITH GRANT OPTION;
 SQL
 
-cp -f /vagrant/provision/tpl/my.cnf /etc/my.cnf
+cp -f /vagrant/provision/db/tpl/my.cnf /etc/my.cnf
 systemctl restart mysqld
 
 echo '== end mysql.sh ===================='

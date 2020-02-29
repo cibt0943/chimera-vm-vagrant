@@ -3,9 +3,6 @@
 echo '== start resolv.sh ===================='
 
 
-# スクリプトファイルのルートへ移動
-cd /vagrant/provision
-
 # resolv固定化
 sed -i -e "/^\[main/a dns=none" /etc/NetworkManager/NetworkManager.conf
 systemctl restart NetworkManager

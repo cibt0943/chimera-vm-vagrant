@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=vagrant
 Group=vagrant
-WorkingDirectory=/var/www/rails_app/(ap_dir_name)
+WorkingDirectory=/var/www/rails_app/chimera
 Environment=RAILS_ENV=(rails_env)
 ExecStart=/usr/local/rbenv/shims/bundle exec pumactl start
 TimeoutSec=300
