@@ -42,7 +42,7 @@ sudo systemctl enable nginx.service
 echo '==> end nginx and puma'
 
 # gemに必要なライブラリをインストール
-# for rails js runtime
+# node for rails js runtime
 curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
 sudo yum -y install nodejs
 
