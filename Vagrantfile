@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
   # AP  #########################################################################
 
   config.vm.define "chimera.ap" do |node|
-    node.vm.box = "cibt0943/centos7_ruby2.6"
+    node.vm.box = "cibt0943/centos7_ruby2.7"
     node.vm.hostname = "chimera.ap"
     node.vm.network "private_network", ip: ap_server_ip
     node.vm.synced_folder "../chimera", "/var/www/rails_app/chimera", create: true, mount_options: ['dmode=755','fmode=755']

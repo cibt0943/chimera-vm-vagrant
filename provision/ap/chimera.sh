@@ -43,7 +43,7 @@ echo '==> end nginx and puma'
 
 # gemに必要なライブラリをインストール
 # node for rails js runtime
-curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
 sudo yum -y install nodejs
 
 # for nokogiri
@@ -60,8 +60,8 @@ sudo yum -y install mysql-devel
 # for shrine
 # sudo yum -y install ImageMagick ImageMagick-devel
 
-# for webpack
-sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
+# for front package manage
+curl -sL https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
 sudo yum -y install yarn
 
 echo '==> end yum'
@@ -88,7 +88,7 @@ cd /var/www/rails_app/chimera
 rm -rf vendor/bundle
 mkdir -p vendor/bundle
 bundle config build.nokogiri --use-system-libraries
-bundle install --path vendor/bundle
+bundle install
 
 echo '==> end bundle'
 
@@ -104,9 +104,8 @@ bin/rails db:migrate RAILS_ENV=test
 
 echo '==> end db'
 
-# nginx起動
-sudo nginx -s stop
-sudo nginx
+# nginx再起動
+sudo systemctl restart nginx
 
 sudo yum clean all
 
