@@ -4,10 +4,10 @@ echo '== start redis.sh ===================='
 
 
 # remiのrpmインストール
-# yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 # redisのインストール
-yum -y --enablerepo=epel install redis
+yum -y --enablerepo=remi install redis
 echo '==> redis version:' | redis-server --version
 
 # redisへのアクセス可能IPを無制限に設定

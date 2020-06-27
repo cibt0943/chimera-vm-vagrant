@@ -52,6 +52,9 @@ sudo yum -y install libxml2-devel libxslt-devel
 # for mysql
 sudo yum -y install mysql-devel
 
+# for rails-erd
+sudo yum -y install graphviz
+
 # mysqlのrpmインストール
 # sudo yum -y install http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
 # mysql5.6 client community版をインストール
@@ -85,7 +88,7 @@ cd /var/www/rails_app/chimera
 # cp -rf /var/www/rails_bundle/chimera/. vendor/bundle
 
 ## vagrantのsynced_folderディレクトリ内にgemがインストールできる場合 ##
-rm -rf vendor/bundle
+# rm -rf vendor/bundle
 mkdir -p vendor/bundle
 bundle config build.nokogiri --use-system-libraries
 bundle install
