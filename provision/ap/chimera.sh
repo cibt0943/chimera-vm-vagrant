@@ -9,6 +9,12 @@ ap_server_global_domain=$2
 sudo yum update
 sudo yum -y install wget gcc-c++
 
+# git2のインストール for lint-staged
+sudo yum -y remove git
+sudo yum -y install https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum -y install git224
+sudo yum-config-manager --disable ius
+
 # nginxのrpmインストール
 sudo yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 # nginxのインストール
@@ -71,30 +77,14 @@ echo '==> end yum'
 
 cd /var/www/rails_app/chimera
 
-## vagrantのsynced_folderディレクトリ内にgemがインストールできない場合 ##
-# vendor/bundleの下にgemを入れたいがvagrantのsynced_folderディレクトリ内にgemをインストールできないので、
-# /var/www/rails_bundleにgemを置き、vendor/bundleには参考ソースとしてコピーを置いておく
-
-# bundleにてgemを/var/www/rails_bundleディレクトリにインストール
-# sudo rm -rf /var/www/rails_bundle/chimera
-# sudo mkdir -p /var/www/rails_bundle/chimera
-# sudo chmod 777 /var/www/rails_bundle/chimera
-# bundle config build.nokogiri --use-system-libraries
-# bundle install --path=/var/www/rails_bundle/chimera/
-
-# bundleにて/var/www/rails_bundleディレクトリに入れたgemをrailsプロジェクトの中にコピー
-# rm -rf vendor/bundle
-# mkdir vendor/bundle
-# cp -rf /var/www/rails_bundle/chimera/. vendor/bundle
-
-## vagrantのsynced_folderディレクトリ内にgemがインストールできる場合 ##
-# rm -rf vendor/bundle
+rm -rf vendor/bundle
 mkdir -p vendor/bundle
 bundle config build.nokogiri --use-system-libraries
 bundle install
 
 echo '==> end bundle'
 
+rm -rf node_modules
 yarn install
 
 echo '==> end yarn'
