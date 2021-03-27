@@ -43,7 +43,7 @@ echo '==> end nginx and puma'
 
 # gemに必要なライブラリをインストール
 # node for rails js runtime
-curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+curl -sL https://rpm.nodesource.com/setup_15.x | sudo bash -
 sudo yum -y install nodejs
 
 # for nokogiri
