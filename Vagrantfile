@@ -16,6 +16,8 @@ Vagrant.configure(2) do |config|
     node.vm.box = "cibt0943/centos7_mysql5.7"
     node.vm.hostname = "chimera.db"
     node.vm.network "private_network", ip: db_server_ip
+    node.vm.synced_folder '.', '/vagrant', disabled: true
+    node.vm.synced_folder './provision', '/vagrant/provision'
     node.vm.provider "virtualbox" do |vb|
       vb.cpus = "1"
       vb.memory = "1024"
@@ -36,6 +38,8 @@ Vagrant.configure(2) do |config|
     node.vm.box = "cibt0943/centos7_ruby2.7"
     node.vm.hostname = "chimera.ap"
     node.vm.network "private_network", ip: ap_server_ip
+    node.vm.synced_folder '.', '/vagrant', disabled: true
+    node.vm.synced_folder './provision', '/vagrant/provision'
     node.vm.synced_folder "../chimera", "/var/www/rails_app/chimera", create: true
     node.vm.provider "virtualbox" do |vb|
       vb.cpus = "1"

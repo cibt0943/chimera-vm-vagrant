@@ -9,12 +9,6 @@ ap_server_global_domain=$2
 sudo yum update
 sudo yum -y install wget gcc-c++
 
-# git2のインストール for lint-staged
-sudo yum -y remove git
-sudo yum -y install https://repo.ius.io/ius-release-el7.rpm https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-sudo yum -y install git224
-sudo yum-config-manager --disable ius
-
 # nginxのrpmインストール
 sudo yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
 # nginxのインストール
