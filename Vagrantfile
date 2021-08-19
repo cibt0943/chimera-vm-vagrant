@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
     node.vm.synced_folder "../chimera", "/var/www/rails_app/chimera", create: true
     node.vm.provider "virtualbox" do |vb|
       vb.cpus = "1"
-      vb.memory = "1024"
+      vb.memory = "2048"
       vb.name = "chimera.ap"
     end
 
