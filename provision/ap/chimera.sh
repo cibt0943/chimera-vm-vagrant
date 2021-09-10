@@ -15,6 +15,12 @@ sudo yum -y install http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release
 sudo yum -y install nginx
 echo '==> nginx version:' | nginx -v
 
+# SSL証明書作成
+sudo mkdir /etc/nginx/ssl
+sudo sh -c 'openssl genrsa 2048 > /etc/nginx/ssl/server.key'
+sudo sh -c 'openssl req -new -batch -key /etc/nginx/ssl/server.key > /etc/nginx/ssl/server.csr'
+sudo sh -c 'openssl x509 -req -days 3650 -signkey /etc/nginx/ssl/server.key < /etc/nginx/ssl/server.csr > /etc/nginx/ssl/server.crt'
+
 # nginxのdefault.confファイルを作成
 sudo cp -f /vagrant/provision/ap/tpl/nginx-chimera.conf /etc/nginx/conf.d/default.conf
 # 値を書き換え
@@ -32,8 +38,8 @@ sudo cp -f /vagrant/provision/ap/tpl/puma-chimera.service /usr/lib/systemd/syste
 sudo sed -i -e "s/(rails_env)/$rails_env/g" /usr/lib/systemd/system/puma-chimera.service
 
 # puma自動起動設定
-sudo systemctl disable puma-chimera.service
-sudo systemctl enable puma-chimera.service
+# sudo systemctl disable puma-chimera.service
+# sudo systemctl enable puma-chimera.service
 
 # nginx自動起動設定
 sudo systemctl disable nginx.service
@@ -70,6 +76,8 @@ sudo yum -y install yarn
 echo '==> end yum'
 
 cd /var/www/rails_app/chimera
+
+sudo gem update bundler
 
 rm -rf vendor/bundle
 mkdir -p vendor/bundle

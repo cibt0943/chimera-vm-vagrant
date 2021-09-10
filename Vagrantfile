@@ -1,13 +1,13 @@
 Vagrant.configure(2) do |config|
   config.ssh.insert_key = false
 
-  dns_server_ip = "172.16.99.10"
+  dns_server_ip = "172.16.100.10"
 
   db_server_ip = dns_server_ip
   db_username = "mysql"
   db_password = "mysql"
 
-  ap_server_ip = "172.16.100.10"
+  ap_server_ip = "172.16.100.20"
   ap_server_global_domain = "tamechimera.com"
 
 
